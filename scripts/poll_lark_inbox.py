@@ -1,0 +1,8 @@
+from __future__ import annotations
+
+import _bootstrap  # noqa: F401
+from podcast2md.lark_poll_inbox import main
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,66 @@
+paths:
+  data_dir: data
+  queue_db: data/queue.sqlite
+  audio_dir: data/audio
+  asr_json_dir: data/asr_json
+  output_dir: output
+  log_dir: logs
+
+service:
+  # Worker queue polling interval. Feishu message receiving is event-driven;
+  # this only controls how often the local worker checks the SQLite queue.
+  worker_poll_interval_seconds: 30
+
+lark:
+  # Uses local lark-cli event stream. Configure lark-cli before running:
+  #   lark-cli config init --new
+  event_key: im.message.receive_v1
+  identity: bot
+  reply_enabled: true
+
+download:
+  # Optional: set to a Bilibili/YouTube cookies file if needed.
+  cookie_file: ""
+  # Optional: use browser cookies directly, for example chrome, safari, firefox.
+  cookies_from_browser: ""
+  audio_format: mp3
+  keep_audio: false
+
+storage:
+  # aliyun_oss is recommended because Aliyun ASR requires a public HTTPS audio URL.
+  provider: aliyun_oss
+  # Set retention_days to 0 and delete_after_asr to true for immediate deletion.
+  # For troubleshooting, keep temporary OSS audio for 1-3 days and let cleanup remove it later.
+  delete_after_asr: false
+  retention_days: 3
+  cleanup_interval_seconds: 3600
+  aliyun_oss:
+    endpoint: "${ALIYUN_OSS_ENDPOINT}"
+    bucket: "${ALIYUN_OSS_BUCKET}"
+    access_key_id_env: ALIYUN_ACCESS_KEY_ID
+    access_key_secret_env: ALIYUN_ACCESS_KEY_SECRET
+    prefix: podcast2md/audio
+    signed_url_expires_seconds: 86400
+
+asr:
+  provider: aliyun_paraformer_v2
+  aliyun_paraformer_v2:
+    api_key_env: DASHSCOPE_API_KEY
+    model: paraformer-v2
+    language_hints: ["zh", "en"]
+    diarization_enabled: true
+    timestamp_alignment_enabled: true
+    poll_interval_seconds: 5
+    max_wait_seconds: 1800
+
+postprocess:
+  provider: deepseek
+  deepseek:
+    api_key_env: DEEPSEEK_API_KEY
+    base_url: https://api.deepseek.com
+    model: deepseek-v4-flash
+    max_input_chars: 90000
+
+markdown:
+  include_full_transcript: true
+  timezone: Asia/Shanghai

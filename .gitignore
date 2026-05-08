@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+data/
+logs/
+output/
+temp/
+
+config/config.yaml
+config/*.local.yaml
+*.env
+.env
+cookies.txt
+config/cookies/
+
+# Local reference material from early workflow research.
+播客视频转文字稿工作流指南.md
