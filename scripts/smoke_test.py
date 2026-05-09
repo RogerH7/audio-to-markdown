@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import shutil
 import tempfile
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import _bootstrap  # noqa: F401
 from podcast2md.config import ensure_paths
@@ -88,6 +90,9 @@ markdown:
         ]
 
         assert run_once(str(config_path), dry_run=True)
+        today_dir = root / "output" / datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
+        assert today_dir.is_dir()
+        assert any(today_dir.glob("*.md"))
         rows = list_tasks(db_path, limit=10)
         assert any(row["status"] == "queued" for row in rows)
         print("smoke test passed")

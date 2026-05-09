@@ -13,7 +13,7 @@
   -> 上传阿里云 OSS，生成临时 HTTPS URL
   -> 阿里云 Paraformer V2 转写
   -> DeepSeek V4 Flash 整理为知识库笔记
-  -> output/YYYY/MM/*.md
+  -> output/YYYY-MM-DD/*.md
   -> 飞书 Bot 回发结果
 ```
 

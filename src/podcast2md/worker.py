@@ -47,7 +47,12 @@ def process_task(config: dict[str, Any], task: Any, *, dry_run: bool = False) ->
             include_full_transcript=True,
             timezone=markdown_cfg.get("timezone", "Asia/Shanghai"),
         )
-        return write_markdown(paths["output_dir"], title, content)
+        return write_markdown(
+            paths["output_dir"],
+            title,
+            content,
+            timezone=markdown_cfg.get("timezone", "Asia/Shanghai"),
+        )
 
     print("[worker] downloading source audio...")
     downloaded = download_source(
@@ -124,7 +129,12 @@ def process_task(config: dict[str, Any], task: Any, *, dry_run: bool = False) ->
         include_full_transcript=bool(markdown_cfg.get("include_full_transcript", True)),
         timezone=markdown_cfg.get("timezone", "Asia/Shanghai"),
     )
-    output_path = write_markdown(paths["output_dir"], downloaded.title, content)
+    output_path = write_markdown(
+        paths["output_dir"],
+        downloaded.title,
+        content,
+        timezone=markdown_cfg.get("timezone", "Asia/Shanghai"),
+    )
 
     if not download_cfg.get("keep_audio", False):
         for path in {downloaded.audio_path, normalized}:

@@ -12,7 +12,7 @@
   -> OSS 临时中转
   -> 阿里云 Paraformer V2 转写
   -> DeepSeek V4 Flash 整理成笔记
-  -> output/YYYY/MM/*.md
+  -> output/YYYY-MM-DD/*.md
   -> 飞书 Bot 回发结果
 ```
 
@@ -29,6 +29,7 @@
 ## 目录结构
 
 ```text
+AGENTS.md                    后续开发协作说明
 config/
   config.example.yaml       示例配置，提交到 Git
 docs/

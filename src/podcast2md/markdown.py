@@ -63,9 +63,15 @@ def render_markdown(
     return "\n".join(lines).strip() + "\n"
 
 
-def write_markdown(output_dir: str | Path, title: str, content: str) -> Path:
+def write_markdown(
+    output_dir: str | Path,
+    title: str,
+    content: str,
+    *,
+    timezone: str = "Asia/Shanghai",
+) -> Path:
     output_dir = Path(output_dir)
-    now = datetime.now().strftime("%Y/%m")
+    now = datetime.now(ZoneInfo(timezone)).strftime("%Y-%m-%d")
     target_dir = output_dir / now
     target_dir.mkdir(parents=True, exist_ok=True)
     path = target_dir / f"{safe_filename(title)}.md"

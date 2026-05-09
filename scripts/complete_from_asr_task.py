@@ -92,7 +92,12 @@ def main() -> None:
         include_full_transcript=bool(config.get("markdown", {}).get("include_full_transcript", True)),
         timezone=config.get("markdown", {}).get("timezone", "Asia/Shanghai"),
     )
-    output_path = write_markdown(config["paths"]["output_dir"], title, content)
+    output_path = write_markdown(
+        config["paths"]["output_dir"],
+        title,
+        content,
+        timezone=config.get("markdown", {}).get("timezone", "Asia/Shanghai"),
+    )
     db.mark_task_success(
         queue_db,
         args.queue_task_id,
