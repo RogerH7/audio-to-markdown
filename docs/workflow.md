@@ -137,12 +137,12 @@ python3 scripts/poll_lark_inbox.py --chat-id "oc_xxx" --as user --interval 60
 
 ## OSS 临时文件
 
-默认配置会保留阿里云 Paraformer V2 读取过的临时音频 3 天，便于排查问题，然后由清理器删除：
+默认配置会保留阿里云 Paraformer V2 读取过的临时音频 1 天，便于短期排查问题，然后由清理器删除：
 
 ```yaml
 storage:
   delete_after_asr: false
-  retention_days: 3
+  retention_days: 1
   cleanup_interval_seconds: 3600
 ```
 
@@ -154,7 +154,7 @@ storage:
   retention_days: 0
 ```
 
-如果只想保留 1 天，把 `retention_days` 改为 `1`。保留 1-3 天的 OSS 存储费用很低，但清理器必须持续运行，或者在 OSS 控制台为 `podcast2md/audio/` 前缀配置生命周期删除规则。
+如果想保留 3 天，把 `retention_days` 改为 `3`。保留期越短，OSS 上的常驻音频越少；清理器必须持续运行，或者在 OSS 控制台为 `podcast2md/audio/` 前缀配置生命周期删除规则。
 
 手动预览清理对象：
 

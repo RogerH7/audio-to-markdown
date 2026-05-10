@@ -98,7 +98,7 @@ python3 scripts/cleanup_storage.py --dry-run
 - Prefer config-driven behavior over hardcoded local paths.
 - Preserve the phone-to-Feishu-to-worker flow; avoid adding a second intake mechanism unless it is clearly documented.
 - For Bilibili/YouTube access fixes, use local config such as `cookies_from_browser: "chrome"` or `cookie_file`, but never commit cookies.
-- Aliyun OSS should remain temporary storage. Current default is to retain temporary audio for 3 days and clean it later.
+- Aliyun OSS should remain temporary storage. Current default is to retain temporary audio for 1 day and clean it later.
 - The worker queue polling interval is configured by `service.worker_poll_interval_seconds`; Feishu event reception is long-connection based and should not be changed into polling unless necessary.
 
 ## Cost-Sensitive Defaults

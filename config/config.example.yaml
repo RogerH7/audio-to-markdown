@@ -30,9 +30,9 @@ storage:
   # aliyun_oss is recommended because Aliyun ASR requires a public HTTPS audio URL.
   provider: aliyun_oss
   # Set retention_days to 0 and delete_after_asr to true for immediate deletion.
-  # For troubleshooting, keep temporary OSS audio for 1-3 days and let cleanup remove it later.
+  # For troubleshooting, keep temporary OSS audio briefly and let cleanup remove it later.
   delete_after_asr: false
-  retention_days: 3
+  retention_days: 1
   cleanup_interval_seconds: 3600
   aliyun_oss:
     endpoint: "${ALIYUN_OSS_ENDPOINT}"

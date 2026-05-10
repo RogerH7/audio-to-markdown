@@ -24,7 +24,7 @@
 - 使用 DeepSeek OpenAI-compatible API 做摘要、结构化整理和笔记化。
 - 使用 SQLite 做本地任务队列，避免重复提交。
 - 使用 OSS 临时签名 URL 给 ASR 读取音频。
-- 支持 OSS 临时音频保留 1-3 天后自动清理。
+- 支持 OSS 临时音频按配置保留后自动清理。
 
 ## 目录结构
 
@@ -111,7 +111,7 @@ python3 scripts/run_service.py
 
 - 飞书消息接收是长连接事件驱动，不靠轮询飞书。
 - worker 每 30 秒检查一次本地 SQLite 队列。
-- OSS 临时音频保留 3 天，后台每 1 小时清理一次过期对象。
+- OSS 临时音频默认保留 1 天，后台每 1 小时清理一次过期对象。
 
 如果想更快处理队列：
 
@@ -147,7 +147,7 @@ service:
 
 storage:
   delete_after_asr: false
-  retention_days: 3
+  retention_days: 1
   cleanup_interval_seconds: 3600
 ```
 
@@ -155,7 +155,7 @@ storage:
 
 - `worker_poll_interval_seconds`: worker 检查本地队列的间隔。
 - `delete_after_asr: true` 且 `retention_days: 0`: ASR 完成后立刻删除 OSS 音频。
-- `delete_after_asr: false` 且 `retention_days: 1` 或 `3`: 保留 1 或 3 天后由清理器删除。
+- `delete_after_asr: false` 且 `retention_days: 1` 或 `3`: 保留指定天数后由清理器删除。
 - `cleanup_interval_seconds`: 常驻服务中清理器的运行间隔。
 
 手动预览将删除哪些 OSS 对象：
